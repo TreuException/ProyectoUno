@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   Text,
   View,
@@ -10,17 +10,29 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export default function Places({ navigation }) {
+import {getListPlacesByTypeId} from '../../utils/ApiCalls'
+
+import {AppContext} from '../../utils/Context';
+
+export default function Places({navigation}) {
+
+  const context = useContext(AppContext);
+  const {dataApp, setDataApp} = context;
+
+  useEffect(() => {
+    console.log('se inicia');
+
+    getListPlacesByTypeId(dataApp, dataApp.typePlacesSelect)
+  }, []);
+
   return (
     <View>
-      <TouchableOpacity 
-       onPress={() => {
+      <TouchableOpacity
+        onPress={() => {
           navigation.navigate('PlacesComments');
         }}>
-          <Text> places comments</Text>
+        <Text> places comments {dataApp.typePlacesSelect}</Text>
       </TouchableOpacity>
-     
-
     </View>
   );
 }

@@ -9,15 +9,17 @@ import Places from './src/pages/places/Places';
 import PlacesComments from './src/pages/places/PlacesComments';
 
 import Beaches from './src/pages/beaches/Beaches';
-import DataAplicacionContext from './src/utils/Context';
+
+import AppContextProvider from './src/utils/Context';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <DataAplicacionContext.Provider value={{hola: 'hola'}}>
+    <AppContextProvider>
       <NavigationContainer>
         <Stack.Navigator>
+
           <Stack.Screen
             name="Home"
             component={Home}
@@ -43,7 +45,7 @@ function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </DataAplicacionContext.Provider>
+    </AppContextProvider>
   );
 }
 
