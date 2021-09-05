@@ -1,5 +1,6 @@
 export const apiProperties = {
-  urlBase: 'http://localhost:7612/',
+  urlBase: 'http://192.168.0.9:7612/',
+  //urlBase: 'http://192.243.96.143:7612',
   endPoint: {
     listTypePlaces: '',
     listPlacesByTypeId: '/listPlacesByTypeId/',
