@@ -16,7 +16,7 @@ export default function PlacesComments() {
 
   const updatePhotoServer = image_uri => {
     let subirData = new FormData();
-    subirData.append('submit', 'ok');
+    subirData.append('idPlaces', '1');
     subirData.append('name', 'Ricardo');
     subirData.append('comment', 'estes es un comentario');
     subirData.append('valor1', '1');
