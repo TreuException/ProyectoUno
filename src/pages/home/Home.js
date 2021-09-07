@@ -1,5 +1,12 @@
 import React, {useContext} from 'react';
-import {Text, View, ImageBackground, TouchableOpacity} from 'react-native';
+import {
+  View,
+  ImageBackground,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+
+
 
 import AsyncStorage from '../../utils/AsyncStorage';
 import styleMain from '../../style/stylemain';
@@ -42,6 +49,8 @@ const Home = ({navigation}) => {
         justifyContent: 'center',
         padding: 5,
       }}>
+
+
       <TouchableOpacity
         style={{width: '100%', height: '30%', paddingBottom: '2%'}}
         onPress={() => {
