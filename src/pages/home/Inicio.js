@@ -1,28 +1,89 @@
 import React from 'react';
-import { Container, Text, Heading, NativeBaseProvider, Center } from 'native-base';
-function ContainerComponent() {
-  return (
-    <Container>
-      <Heading>
-        A component library for the
-        <Heading color="emerald.400">
-          React Ecosystem
-        </Heading>
-      </Heading>
-      <Heading pt={4} fontWeight="normal" size="sm">
-        NativeBase is a simple, modular and accessible component library that gives you building blocks to build you React applications.
-      </Heading>
-    </Container>
-  );
-}
+import {
+  SimpleGrid,
+  MoonIcon,
+  SunIcon,
+  CheckIcon,
+  CircleIcon,
+  ArrowBackIcon,
+  AddIcon,
+  ArrowForwardIcon,
+  ArrowUpIcon,
+  ArrowDownIcon,
+  CheckCircleIcon,
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+  CloseIcon,
+  SmallCloseIcon,
+  HamburgerIcon,
+  InfoIcon,
+  InfoOutlineIcon,
+  MinusIcon,
+  QuestionIcon,
+  QuestionOutlineIcon,
+  SearchIcon,
+  WarningIcon,
+  WarningTwoIcon,
+  Center,
+  NativeBaseProvider,
+} from 'native-base';
 
-// Example template which wraps component with NativeBaseProvider
-export default function () {
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+
+export const Example = () => {
+  const icons = [
+    <AddIcon />,
+    <ArrowBackIcon />,
+    <ArrowForwardIcon />,
+    <ArrowUpIcon />,
+    <ArrowDownIcon />,
+    <CheckIcon />,
+    <CheckCircleIcon />,
+    <ChevronDownIcon />,
+    <ChevronLeftIcon />,
+    <ChevronRightIcon />,
+    <ChevronUpIcon />,
+    <CircleIcon />,
+    <CloseIcon />,
+    <SmallCloseIcon />,
+    <HamburgerIcon />,
+    <InfoIcon />,
+    <InfoOutlineIcon />,
+    <MinusIcon />,
+    <MoonIcon />,
+    <QuestionIcon />,
+    <QuestionOutlineIcon />,
+    <SearchIcon />,
+    <SunIcon />,
+    <WarningIcon />,
+    <WarningTwoIcon />,
+  ];
+  return (
+    // @ts-ignore
+    <SimpleGrid
+      columns={{
+        base: 4,
+        md: 9,
+      }}
+      space={8}>
+      {icons}
+    </SimpleGrid>
+  );
+};
+
+export default () => {
   return (
     <NativeBaseProvider>
       <Center flex={1}>
-        <ContainerComponent />
+        <Example />
+        <Icon
+          name="comments"
+          size={45} >
+        </Icon>
+        
       </Center>
     </NativeBaseProvider>
   );
-}
+};
