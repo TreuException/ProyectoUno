@@ -79,6 +79,7 @@ export default () => {
       <Center flex={1}>
         <Example />
         <Icon
+          key="1"
           name="comments"
           size={45} >
         </Icon>

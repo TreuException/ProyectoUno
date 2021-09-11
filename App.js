@@ -11,7 +11,10 @@ import PlacesComments from './src/pages/places/PlacesComments';
 import Beaches from './src/pages/beaches/Beaches';
 
 import AppContextProvider from './src/utils/Context';
-import Inicio from './src/pages/home/Inicio';
+//import Inicio from './src/pages/home/Inicio';
+
+import Bienvenida from './src/pages/bienvenida';
+import Homelugares from './src/pages/homeLugares';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,9 +26,16 @@ function App() {
 
           <Stack.Screen
             name="Home"
-            component={Inicio}
+            component={Bienvenida}
             options={{headerShown: false}}
           />
+
+          <Stack.Screen
+            name="Homelugares"
+            component={Homelugares}
+            options={{headerShown: false}}
+          />
+
 
           <Stack.Screen
             name="PlacesComments"
@@ -44,6 +54,8 @@ function App() {
             component={Beaches}
             options={{headerShown: false}}
           />
+
+
         </Stack.Navigator>
       </NavigationContainer>
     </AppContextProvider>
