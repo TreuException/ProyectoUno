@@ -32,7 +32,7 @@ const Bienvenida = ({navigation}) => {
             fontSize: 56,
             color: '#F0F5FB',
           }}>
-          Bienvenido...
+          Bienvenido !!
         </Text>
         <Text
           style={{
