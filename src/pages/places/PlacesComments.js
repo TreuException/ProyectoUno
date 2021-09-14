@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   Text,
   View,
@@ -11,8 +11,13 @@ import {
 } from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
+import {AppContext} from '../../utils/Context';
+
 export default function PlacesComments() {
   const [imageUri, setImageUri] = useState();
+
+  const context = useContext(AppContext);
+  const {dataApp, setDataApp} = context;
 
   const updatePhotoServer = image_uri => {
     let subirData = new FormData();
@@ -35,8 +40,11 @@ export default function PlacesComments() {
 
   return (
     <View>
-      <Text> COMENTARIOS !! </Text>
+      <Text> COMENTARIOS !!  </Text>
 
+      <Text> ID TIPO: {dataApp.typePlacesSelect}  </Text>
+      <Text> ID LUGAR: {dataApp.placeSelect}  </Text>
+ 
       <TouchableOpacity
         onPress={() =>
           launchCamera(

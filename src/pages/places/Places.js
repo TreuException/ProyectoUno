@@ -51,18 +51,26 @@ export default function Places({navigation}) {
           //Text style of the Spinner Text
         />
       ) : (
-
-       
-
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('PlacesComments');
-          }}>
+        <View>
           <Text> ||| places comments {dataApp.typePlacesSelect}</Text>
 
-          {dataPlaces.map(r => <Button key={r.id.toString()} title={r.name}>{r}</Button>)}  
-          
-        </TouchableOpacity>
+          {dataPlaces.map(r => (
+            <TouchableOpacity
+              onPress={() => {
+
+                setDataApp({...dataApp, placeSelect: r.id.toString()});
+                navigation.navigate('PlacesComments');
+              }}>
+              <View key={r.id.toString()}>
+                <Text>{r.id.toString()}</Text>
+                <Text>{r.name}</Text>
+                <Text>{r.location}</Text>
+                <Text>{r.description}</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+
+        </View>
       )}
     </View>
   );

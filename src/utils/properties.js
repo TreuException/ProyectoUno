@@ -5,7 +5,8 @@ export const apiProperties = {
     listTypePlaces: '/listAllTypePlaces',
     listPlacesByTypeId: '/listPlacesByTypeId/',
   },
-  typePlacesSelect: ''
+  typePlacesSelect: '',
+  placeSelect: ''
 };
 
 

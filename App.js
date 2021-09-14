@@ -8,10 +8,8 @@ import Home from './src/pages/home/Home';
 import Places from './src/pages/places/Places';
 import PlacesComments from './src/pages/places/PlacesComments';
 
-import Beaches from './src/pages/beaches/Beaches';
 
 import AppContextProvider from './src/utils/Context';
-//import Inicio from './src/pages/home/Inicio';
 
 import Bienvenida from './src/pages/bienvenida';
 import Homelugares from './src/pages/homeLugares';
@@ -48,11 +46,7 @@ function App() {
             options={{headerShown: false}}
           />
 
-          <Stack.Screen
-            name="Beaches"
-            component={Beaches}
-            options={{headerShown: false}}
-          />
+
         </Stack.Navigator>
       </NavigationContainer>
     </AppContextProvider>
