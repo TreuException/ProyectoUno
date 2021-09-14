@@ -23,7 +23,6 @@ function App() {
     <AppContextProvider>
       <NavigationContainer>
         <Stack.Navigator>
-
           <Stack.Screen
             name="Home"
             component={Bienvenida}
@@ -35,7 +34,7 @@ function App() {
             component={Homelugares}
             options={{headerShown: false}}
           />
-
+          
 
           <Stack.Screen
             name="PlacesComments"
@@ -54,8 +53,6 @@ function App() {
             component={Beaches}
             options={{headerShown: false}}
           />
-
-
         </Stack.Navigator>
       </NavigationContainer>
     </AppContextProvider>

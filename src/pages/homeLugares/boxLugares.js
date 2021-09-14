@@ -17,7 +17,7 @@ export default function boxLugares(props) {
       }}>
       <TouchableOpacity
         onPress={() => {
-          props.clickNavegation(props.tipoLugar);
+          props.clickNavegation(props.tipoLugarId);
         }}>
         <Image style={{
             width: "100%",

@@ -14,9 +14,26 @@ export const getListPlacesByTypeId = async (data, id) => {
       .then(data => {
         return data;
       });
-
   } catch (error) {
-    console.log(e);
+    console.log(error);
+    throw error;
+  }
+};
+
+export const getListType = async (data) => {
+  try {
+    const urlFinal = data.urlBase + data.endPoint.listTypePlaces;
+
+    console.log('url final: ' + urlFinal);
+
+    return await fetch(urlFinal)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        return data;
+      });
+  } catch (error) {
+    console.log(error);
     throw error;
   }
 };
