@@ -13,6 +13,7 @@ import AppContextProvider from './src/utils/Context';
 
 import Bienvenida from './src/pages/bienvenida';
 import Homelugares from './src/pages/homeLugares';
+import AddComment from './src/pages/places/AddComment';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,13 @@ function App() {
             component={Places}
             options={{headerShown: false}}
           />
+
+          <Stack.Screen
+            name="AddComment"
+            component={AddComment}
+            options={{headerShown: false}}
+          />
+
 
 
         </Stack.Navigator>

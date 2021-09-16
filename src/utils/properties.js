@@ -1,9 +1,10 @@
 export const apiProperties = {
-  urlBase: 'http://192.168.0.6:7612',
+  urlBase: 'http://192.168.0.13:7612',
   //urlBase: 'http://192.243.96.143:7612',
   endPoint: {
     listTypePlaces: '/listAllTypePlaces',
     listPlacesByTypeId: '/listPlacesByTypeId/',
+    saveNewComments: '/saveNewComments'
   },
   typePlacesSelect: '',
   placeSelect: ''
