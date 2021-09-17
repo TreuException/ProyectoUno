@@ -5,7 +5,9 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {AppContext} from '../../utils/Context';
 import {apiProperties} from '../../utils/properties';
 
-export default function AddComment({navigation}) {
+export default function AddComment({route, navigation}) {
+  const {dataPlace} = route.params;
+
   const [name, setName] = useState();
   const [commentario, setComentario] = useState();
   const [imageUri, setImageUri] = useState();
@@ -26,11 +28,14 @@ export default function AddComment({navigation}) {
     subirData.append('idPlaces', dataApp.placeSelect);
     subirData.append('name', name);
     subirData.append('comment', commentario);
-    subirData.append('photo', {
-      type: 'image/jpg',
-      uri: imageUri,
-      name: 'updateimagentmp.jpg',
-    });
+
+    if (imageUri !== undefined) {
+      subirData.append('photo', {
+        type: 'image/jpg',
+        uri: imageUri,
+        name: 'photo.jpg',
+      });
+    }
 
     fetch(apiProperties.urlBase + apiProperties.endPoint.saveNewComments, {
       method: 'POST',
@@ -40,28 +45,29 @@ export default function AddComment({navigation}) {
       .then(data => {
         console.log(data);
         if (data === true) {
-          //console.log("Estoy en el comentario")
+          console.log('Estoy en el comentario');
           //navigation.navigate('PlacesComments');
+          navigation.navigate('PlacesComments', {dataPlace: dataPlace});
 
-          setModalVisible(true)
-          
+          //setModalVisible(true)
         }
       });
   };
 
   return (
     <View>
-
-        
-<Modal visible={modalVisible} animationType={"slide"}>
-  <View style={{ flex: 1 }}>
-    <Text>Hello!</Text>
-    <Button title="Click To Close Modal" onPress = {() => {  
-        alert(modalVisible)
-                  setModalVisible(false) }}/>  
-  </View>
-</Modal>
-
+      <Modal visible={modalVisible} animationType={'slide'}>
+        <View style={{flex: 1}}>
+          <Text>Hello!</Text>
+          <Button
+            title="Click To Close Modal"
+            onPress={() => {
+              alert(modalVisible);
+              setModalVisible(false);
+            }}
+          />
+        </View>
+      </Modal>
 
       <TextInput
         onChangeText={setName}
@@ -98,7 +104,7 @@ export default function AddComment({navigation}) {
         title={'subir foto'}
       />
 
-      <Button onPress={() => subirComentario()} title={'Comenta0r'} />
+      <Button onPress={() => subirComentario()} title={'Comentar'} />
     </View>
   );
 }

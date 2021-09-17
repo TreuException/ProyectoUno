@@ -35,7 +35,7 @@ export default function Places({navigation}) {
       })
       .catch(error => {
         console.log('Api call error');
-        alert(error.message);
+        //alert(error.message);
         setLoading(false);
       });
   }, []);
@@ -59,7 +59,7 @@ export default function Places({navigation}) {
               onPress={() => {
 
                 setDataApp({...dataApp, placeSelect: r.id.toString()});
-                navigation.navigate('PlacesComments');
+                navigation.navigate('PlacesComments', {dataPlace: r});
               }}>
               <View key={r.id.toString()}>
                 <Text>{r.id.toString()}</Text>

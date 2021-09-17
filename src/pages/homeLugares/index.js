@@ -42,7 +42,7 @@ export default function index({navigation}) {
   }, []);
 
   const clickNavegation = tipo => {
-    alert('hola en el padre ' + tipo);
+    //alert('hola en el padre ' + tipo);
 
     switch (tipo) {
       case ID_TYPE_PLACER.PLACES:
