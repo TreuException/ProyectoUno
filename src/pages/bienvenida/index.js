@@ -19,51 +19,54 @@ const Bienvenida = ({navigation}) => {
         width: '100%',
         height: '100%',
         backgroundColor: '#1C70E2',
-        flexDirection: 'row',
       }}>
       <View
         style={{
-          marginLeft: '10%',
-          marginTop: '50%',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: "50%"
         }}>
-        <Text
-          style={{
-            fontFamily: 'Roboto-Bold',
-            fontSize: 56,
-            color: '#F0F5FB',
-          }}>
-          Bienvenido !!
-        </Text>
-        <Text
-          style={{
-            fontFamily: 'Roboto-regular',
-            fontSize: 18,
-            color: '#F0F5FB',
-          }}>
-          Busca y comenta los lugares que conoces...
-        </Text>
-
-        <TouchableOpacity onPress={() => navigation.navigate('Homelugares')}>
-          <View
+        <View>
+          <Text
             style={{
-              width: 200,
-              backgroundColor: '#122E55',
-              borderRadius: 12,
-              alignItems: 'center',
-              marginTop: 15,
+              fontFamily: 'Raleway-Bold',
+              fontSize: 56,
+              color: '#F0F5FB',
             }}>
-            <Text
+            Bienvenido !!
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'Raleway-Light',
+              fontSize: 18,
+              color: '#F0F5FB',
+            }}>
+            Busca y comenta los lugares que conoces...
+          </Text>
+
+          <TouchableOpacity onPress={() => navigation.navigate('Homelugares')}>
+            <View
               style={{
-                textAlign: 'center',
-                fontFamily: 'Roboto-regular',
-                fontSize: 18,
-                padding: 10,
-                color: '#F0F5FB',
+                width: 200,
+                backgroundColor: '#122E55',
+                borderRadius: 12,
+                alignItems: 'center',
+                marginTop: 15,
               }}>
-              Entrar...
-            </Text>
-          </View>
-        </TouchableOpacity>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontFamily: 'Raleway-Bold',
+                  fontSize: 18,
+                  padding: 10,
+                  color: '#F0F5FB',
+                }}>
+                Entrar
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

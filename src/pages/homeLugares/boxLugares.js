@@ -19,26 +19,35 @@ export default function boxLugares(props) {
         onPress={() => {
           props.clickNavegation(props.tipoLugarId);
         }}>
-        <Image style={{
-            width: "100%",
-            borderTopLeftRadius:8,
-            borderTopRightRadius: 8
-        }} source={require('./assets/images/lugares.jpg')}></Image>
 
-        <View style={{
-            backgroundColor: '#122E55',
-        }} >
-          <Text
+        <View
             style={{
-              textAlign: 'center',
-              color: '#F0F5FB',
-              fontFamily: 'Roboto-regular',
-              fontSize: 18,
+              backgroundColor: '#ffff',
+              width: '100%',
+              borderRadius: 8,
               padding: 10,
+              marginTop: 10,
             }}>
-            Ver {props.tipoLugar}...
-          </Text>
-        </View>
+
+            <Image
+              style={{
+                width: '100%',
+                height: 120,
+                borderTopLeftRadius: 8,
+                borderTopRightRadius: 8,
+              }}
+              source={require('./assets/images/lugares.jpg')}></Image>
+
+            <Text
+              style={{
+                fontFamily: 'Raleway-Regular',
+                fontSize: 28,
+                color: '#6A686B',
+              }}>
+               {props.tipoLugar}
+            </Text>
+          </View>
+
       </TouchableOpacity>
     </View>
   );

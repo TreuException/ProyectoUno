@@ -55,7 +55,7 @@ export default function index({navigation}) {
       case ID_TYPE_PLACER.RESTAURANT:
         setDataApp({...dataApp, typePlacesSelect: ID_TYPE_PLACER.RESTAURANT});
         break;
-        
+
       default:
         setDataApp({...dataApp, typePlacesSelect: ID_TYPE_PLACER.ERROR});
         break;
@@ -67,7 +67,8 @@ export default function index({navigation}) {
   return (
     <ScrollView
       style={{
-        backgroundColor: '#ffff',
+        //backgroundColor: '#ffff',
+        backgroundColor: '#1C70E2',
         width: '100%',
         height: '100%',
         flexDirection: 'column',
@@ -78,26 +79,37 @@ export default function index({navigation}) {
           margin: '5%',
         }}>
         <View>
+          <Text
+            style={{
+              fontFamily: 'Raleway-Regular',
+              fontSize: 45,
+              color: '#F0F5FB',
+            }}>
+            Explora nuestros sitios
+          </Text>
+
           {loading ? (
-            <ActivityIndicator visible={loading} textContent={'Loading...'} />
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                padding: 10,
+              }}>
+              <ActivityIndicator visible={loading} color="#00ff00" textContent={'Loading...'} />
+            </View>
           ) : (
             <View>
-              <Text
-                style={{
-                  fontFamily: 'Roboto-regular',
-                  fontSize: 40,
-                  color: '#122E55',
-                }}>
-                Tipos de lugares{' '}
-              </Text>
-
-              {dataTypePlaces.map(r => (
-                <BoxLugares
-                  key={r.id}
-                  tipoLugar={r.name}
-                  tipoLugarId={r.id}
-                  clickNavegation={clickNavegation}></BoxLugares>
-              ))}
+              <View>
+                {dataTypePlaces.map(r => (
+                  <BoxLugares
+                    key={r.id}
+                    tipoLugar={r.name}
+                    tipoLugarId={r.id}
+                    clickNavegation={clickNavegation}></BoxLugares>
+                ))}
+              </View>
             </View>
           )}
         </View>
