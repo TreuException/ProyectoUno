@@ -9,13 +9,16 @@ import {
   ImageBackground,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 
 import {getListPlacesByTypeId} from '../../utils/ApiCalls';
 
 import {AppContext} from '../../utils/Context';
 
-export default function Places({navigation}) {
+export default function Places({route, navigation}) {
+  const {tipoLugar} = route.params;
+
   const context = useContext(AppContext);
   const {dataApp, setDataApp} = context;
 
@@ -41,37 +44,101 @@ export default function Places({navigation}) {
   }, []);
 
   return (
-    <View>
-      {loading ? (
-        <ActivityIndicator
-          //visibility of Overlay Loading Spinner
-          visible={loading}
-          //Text with the Spinner
-          textContent={'Loading...'}
-          //Text style of the Spinner Text
-        />
-      ) : (
-        <View>
-          <Text> ||| places comments {dataApp.typePlacesSelect}</Text>
+    <ScrollView
+      style={{
+        backgroundColor: '#1C70E2',
+        width: '100%',
+        height: '100%',
+        flexDirection: 'column',
+        alignContent: 'center',
+      }}>
+      <View
+        style={{
+          margin: '5%',
+        }}>
+        <Text
+          style={{
+            fontFamily: 'Raleway-Regular',
+            fontSize: 45,
+            color: '#F0F5FB',
+          }}>
+          {tipoLugar}
+        </Text>
 
-          {dataPlaces.map(r => (
-            <TouchableOpacity
-              onPress={() => {
+        {loading ? (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              padding: 10,
+            }}>
+            <ActivityIndicator
+              visible={loading}
+              color="#00ff00"
+              textContent={'Loading...'}
+            />
+          </View>
+        ) : (
+          <View>
+            {dataPlaces.map(r => (
+              <TouchableOpacity
+                onPress={() => {
+                  setDataApp({...dataApp, placeSelect: r.id.toString()});
+                  navigation.navigate('PlacesComments', {dataPlace: r});
+                }}>
+                <View
+                  style={{
+                    backgroundColor: '#ffff',
+                    width: '100%',
+                    borderRadius: 8,
+                    padding: 10,
+                    marginTop: 10,
+                  }}
+                  key={r.id.toString()}>
+                    
+                  <Image
+                    style={{
+                      width: '100%',
+                      height: 150,
+                      borderTopLeftRadius: 8,
+                      borderTopRightRadius: 8,
+                    }}
+                    source={{
+                      uri: r.photo,
+                    }}></Image>
 
-                setDataApp({...dataApp, placeSelect: r.id.toString()});
-                navigation.navigate('PlacesComments', {dataPlace: r});
-              }}>
-              <View key={r.id.toString()}>
-                <Text>{r.id.toString()}</Text>
-                <Text>{r.name}</Text>
-                <Text>{r.location}</Text>
-                <Text>{r.description}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-
-        </View>
-      )}
-    </View>
+                  <Text
+                    style={{
+                      fontFamily: 'Raleway-Regular',
+                      fontSize: 28,
+                      color: '#6A686B',
+                    }}>
+                    {r.name}
+                  </Text>
+                  <Text
+                    style={{
+                      fontFamily: 'Raleway-Regular',
+                      fontSize: 10,
+                      color: '#6A686B',
+                    }}>
+                    {r.location}
+                  </Text>
+                  <Text
+                    style={{
+                      fontFamily: 'Raleway-Regular',
+                      fontSize: 15,
+                      color: '#6A686B',
+                    }}>
+                    {r.description}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+      </View>
+    </ScrollView>
   );
 }

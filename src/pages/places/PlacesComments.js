@@ -7,10 +7,10 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
-  Image
+  Image,
 } from 'react-native';
 
-import { useIsFocused } from "@react-navigation/native";
+import {useIsFocused} from '@react-navigation/native';
 
 import {AppContext} from '../../utils/Context';
 
@@ -55,55 +55,130 @@ export default function PlacesComments({route, navigation}) {
   }, [isFocused]);
 
   return (
-    <ScrollView>
-      <Text> </Text>
+    <ScrollView
+      style={{
+        backgroundColor: '#1C70E2',
+        width: '100%',
+        height: '100%',
+        flexDirection: 'column',
+        alignContent: 'center',
+      }}>
+      <View
+        style={{
+          margin: '5%',
+        }}>
+        <View style={{}}>
+          <Text
+            style={{
+              fontFamily: 'Raleway-Regular',
+              fontSize: 45,
+              color: '#F0F5FB',
+            }}>
+            {dataPlace.name}
+          </Text>
 
-      <View key={dataPlace.id.toString()}>
-        <Text>{dataPlace.id.toString()}</Text>
-        <Text>{dataPlace.name}</Text>
-        <Text>{dataPlace.location}</Text>
-        <Text>{dataPlace.description}</Text>
-      </View>
+          <View
+            style={{
+              backgroundColor: '#ffff',
+              width: '100%',
+              borderRadius: 8,
+              padding: 10,
+              marginTop: 10,
+            }}>
+            <Image
+              style={{
+                width: '100%',
+                height: 150,
+                borderTopLeftRadius: 8,
+                borderTopRightRadius: 8,
+              }}
+              source={{
+                uri: dataPlace.photo,
+              }}></Image>
 
-      <View>
-        {loading ? (
-          <ActivityIndicator
-            //visibility of Overlay Loading Spinner
-            visible={loading}
-            //Text with the Spinner
-            textContent={'Loading...'}
-            //Text style of the Spinner Text
-          />
-        ) : (
-          <View>
-            {dataComments.map(r => (
-              <View key={r.id.toString()}>
-                <Text>{r.id.toString()}</Text>
-                <Text>{r.name}</Text>
-                <Text>{r.comment}</Text>
-                <Text>{r.photo}</Text>
-
-                <Image
+            <Text
+              style={{
+                fontFamily: 'Raleway-Regular',
+                fontSize: 12,
+                color: '#6A686B',
+              }}>
+              Comentarios :
+            </Text>
+            <View>
+              {loading ? (
+                <View
                   style={{
-                    width: '90%',
-                    height: 100,
-                  }}
-                  source={{
-                    uri: dataApp.urlPhotoServer + r.photo,
-                  }}
-                />
-              </View>
-            ))}
-          </View>
-        )}
-      </View>
+                    flex: 1,
+                    justifyContent: 'center',
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                    padding: 10,
+                  }}>
+                  <ActivityIndicator
+                    visible={loading}
+                    color="#00ff00"
+                    textContent={'Loading...'}
+                  />
+                </View>
+              ) : (
+                <View>
+                  {dataComments.map(r => (
+                    <View key={r.id.toString()}>
+                      
+                      <Text
+                        style={{
+                          fontFamily: 'Raleway-Regular',
+                          fontSize: 15,
+                          color: '#6A686B',
+                        }}>
+                        <Text>#</Text>
+                        <Text style={{fontWeight: 'bold'}}>
+                          {' '}
+                          {r.id.toString()}{' '}
+                        </Text>
+                      </Text>
 
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('AddComment', {dataPlace: dataPlace})
-        }>
-        <Text> Comentar...</Text>
-      </TouchableOpacity>
+                      <Text>
+                        <Text>nombre :</Text>
+                        <Text>{r.name}</Text>
+                      </Text>
+
+                      
+                      <Text>Comentario :</Text>
+                      <Text>{r.comment}</Text>
+                     
+
+                      <Image
+                        style={{
+                          width: '90%',
+                          height: 100,
+                        }}
+                        source={{
+                          uri: dataApp.urlPhotoServer + r.photo,
+                        }}
+                      />
+
+                      <View
+                        style={{
+                          borderBottomColor: 'black',
+                          borderBottomWidth: 1,
+                        }}
+                      />
+                    </View>
+                  ))}
+                </View>
+              )}
+            </View>
+          </View>
+        </View>
+
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('AddComment', {dataPlace: dataPlace})
+          }>
+          <Text> Comentar...</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }

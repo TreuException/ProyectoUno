@@ -17,7 +17,7 @@ export default function boxLugares(props) {
       }}>
       <TouchableOpacity
         onPress={() => {
-          props.clickNavegation(props.tipoLugarId);
+          props.clickNavegation(props.tipoLugarId, props.tipoLugar );
         }}>
 
         <View

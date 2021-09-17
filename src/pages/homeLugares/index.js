@@ -41,7 +41,7 @@ export default function index({navigation}) {
       });
   }, []);
 
-  const clickNavegation = tipo => {
+  const clickNavegation = (tipo, tipoLugar) => {
     //alert('hola en el padre ' + tipo);
 
     switch (tipo) {
@@ -61,7 +61,7 @@ export default function index({navigation}) {
         break;
     }
 
-    navigation.navigate('Places');
+    navigation.navigate('Places', {tipoLugar: tipoLugar});
   };
 
   return (
