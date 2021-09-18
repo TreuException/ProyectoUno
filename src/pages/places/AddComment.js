@@ -54,6 +54,7 @@ export default function AddComment({route, navigation}) {
       });
   };
 
+
   return (
     <View>
       <Modal visible={modalVisible} animationType={'slide'}>
@@ -87,9 +88,19 @@ export default function AddComment({route, navigation}) {
 
       <Button
         onPress={() =>
+
+
+         
+
+          
           launchCamera(
             {cameraType: 'back', mediaType: 'photo', saveToPhotos: true},
             response => {
+
+              console.log("response: ");
+              console.log(response);
+
+
               if (response.didCancel) {
                 return;
               }
@@ -100,6 +111,7 @@ export default function AddComment({route, navigation}) {
               setImageUri(response.assets[0].uri);
             },
           )
+           
         }
         title={'subir foto'}
       />
