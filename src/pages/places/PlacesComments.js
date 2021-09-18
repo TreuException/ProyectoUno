@@ -8,7 +8,10 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Image,
+  Modal,
 } from 'react-native';
+
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 import {useIsFocused} from '@react-navigation/native';
 
@@ -17,6 +20,7 @@ import {AppContext} from '../../utils/Context';
 import AddComment from './AddComment';
 
 import {listCommentsByPlaces} from '../../utils/ApiCalls';
+import {marginTop} from 'styled-system';
 
 export default function PlacesComments({route, navigation}) {
   const isFocused = useIsFocused();
@@ -28,6 +32,10 @@ export default function PlacesComments({route, navigation}) {
 
   const [loading, setLoading] = useState(false);
   const [dataComments, setDataComments] = useState([]);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [dataImagenModal, setDataImagenModal] = useState({});
 
   useEffect(() => {
     if (isFocused) {
@@ -54,6 +62,13 @@ export default function PlacesComments({route, navigation}) {
     }
   }, [isFocused]);
 
+  const openModalImagen = data => {
+    if (data !== undefined) {
+      setDataImagenModal(data);
+      setModalVisible(true);
+    }
+  };
+
   return (
     <ScrollView
       style={{
@@ -63,6 +78,28 @@ export default function PlacesComments({route, navigation}) {
         flexDirection: 'column',
         alignContent: 'center',
       }}>
+      <Modal visible={modalVisible} animationType={'slide'}>
+        <View style={{flex: 1}}>
+          <Image
+            style={{
+              width: '90%',
+              height: 100,
+            }}
+            source={{
+              uri: dataApp.urlPhotoServer + dataImagenModal.photo,
+            }}
+          />
+
+          <Button
+            title="Click To Close Modal"
+            onPress={() => {
+              alert(modalVisible);
+              setModalVisible(false);
+            }}
+          />
+        </View>
+      </Modal>
+
       <View
         style={{
           margin: '5%',
@@ -124,46 +161,42 @@ export default function PlacesComments({route, navigation}) {
                 <View>
                   {dataComments.map(r => (
                     <View key={r.id.toString()}>
-                      
-                      <Text
-                        style={{
-                          fontFamily: 'Raleway-Regular',
-                          fontSize: 15,
-                          color: '#6A686B',
-                        }}>
-                        <Text>#</Text>
-                        <Text style={{fontWeight: 'bold'}}>
-                          {' '}
-                          {r.id.toString()}{' '}
-                        </Text>
-                      </Text>
-
-                      <Text>
-                        <Text>nombre :</Text>
-                        <Text>{r.name}</Text>
-                      </Text>
-
-                      
-                      <Text>Comentario :</Text>
-                      <Text>{r.comment}</Text>
-                     
-
-                      <Image
-                        style={{
-                          width: '90%',
-                          height: 100,
-                        }}
-                        source={{
-                          uri: dataApp.urlPhotoServer + r.photo,
-                        }}
-                      />
-
                       <View
                         style={{
-                          borderBottomColor: 'black',
-                          borderBottomWidth: 1,
-                        }}
-                      />
+                          backgroundColor: '#EEF3F6',
+                          marginTop: 10,
+                          borderRadius: 2,
+                          padding: 5,
+                        }}>
+                        <Text
+                          style={{
+                            fontFamily: 'Raleway-Regular',
+                            fontSize: 12,
+                            color: '#6A686B',
+                          }}>
+                          <Text>#</Text>
+                          <Text style={{fontWeight: 'bold'}}>
+                            {r.id.toString()}{' '}
+                          </Text>
+                          <Text> - </Text>
+                          <Text>{r.name} </Text>
+                          <Text> - </Text>
+                          <Icon
+                            key="1"
+                            onPress={() => openModalImagen(r)}
+                            name="camera"
+                            size={15}></Icon>
+                        </Text>
+
+                        <Text
+                          style={{
+                            fontFamily: 'Raleway-Regular',
+                            fontSize: 10,
+                            color: '#6A686B',
+                          }}>
+                          {r.comment}
+                        </Text>
+                      </View>
                     </View>
                   ))}
                 </View>
@@ -176,8 +209,27 @@ export default function PlacesComments({route, navigation}) {
           onPress={() =>
             navigation.navigate('AddComment', {dataPlace: dataPlace})
           }>
-          <Text> Comentar...</Text>
+          <View
+            style={{
+              width: '100%',
+              backgroundColor: '#122E55',
+              borderRadius: 12,
+              alignItems: 'center',
+              marginTop: 15,
+            }}>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontFamily: 'Raleway-Regular',
+                fontSize: 18,
+                padding: 10,
+                color: '#F0F5FB',
+              }}>
+              Comentar
+            </Text>
+          </View>
         </TouchableOpacity>
+        
       </View>
     </ScrollView>
   );
