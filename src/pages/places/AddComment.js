@@ -1,6 +1,17 @@
 import React, {useState, useContext} from 'react';
-import {Text, View, Button, TextInput, Modal, Pressable} from 'react-native';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {
+  PermissionsAndroid,
+  Text,
+  View,
+  Button,
+  TextInput,
+  Modal,
+  Pressable,
+} from 'react-native';
+
+
+
+import * as ImagePicker from "react-native-image-picker"
 
 import {AppContext} from '../../utils/Context';
 import {apiProperties} from '../../utils/properties';
@@ -54,6 +65,52 @@ export default function AddComment({route, navigation}) {
       });
   };
 
+  const cameraLaunch = () => {
+   
+    ImagePicker.launchCamera(
+      {
+        includeBase64: false,
+        mediaType: 'photo',
+        quality: 0.3,
+      },
+      async (response) => {
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        } else if (response.error) {
+          console.log('ImagePicker Error: ', response.error);
+        } else {
+          console.log("RESULTADO");
+          console.log(response);
+          setImageUri(response.assets[0].uri);
+        }
+      },
+    );
+
+  };
+
+  const requestCameraPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'App Camera Permission',
+          message: 'App needs access to your camera ',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Camera permission given');
+        cameraLaunch();
+      } else {
+        console.log('Camera permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
   return (
     <View>
       <Modal visible={modalVisible} animationType={'slide'}>
@@ -86,21 +143,7 @@ export default function AddComment({route, navigation}) {
       />
 
       <Button
-        onPress={() =>
-          launchCamera(
-            {cameraType: 'back', mediaType: 'photo', saveToPhotos: true},
-            response => {
-              if (response.didCancel) {
-                return;
-              }
-              if (!response.assets[0].uri) {
-                return;
-              }
-
-              setImageUri(response.assets[0].uri);
-            },
-          )
-        }
+        onPress={requestCameraPermission}
         title={'subir foto'}
       />
 
