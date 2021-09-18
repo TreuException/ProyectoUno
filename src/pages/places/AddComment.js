@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   PermissionsAndroid,
   Text,
@@ -7,11 +7,11 @@ import {
   TextInput,
   Modal,
   Pressable,
+  TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 
-
-
-import * as ImagePicker from "react-native-image-picker"
+import * as ImagePicker from 'react-native-image-picker';
 
 import {AppContext} from '../../utils/Context';
 import {apiProperties} from '../../utils/properties';
@@ -27,7 +27,10 @@ export default function AddComment({route, navigation}) {
 
   const {dataApp, setDataApp} = useContext(AppContext);
 
-  console.log(navigation);
+  const [errorNombre, setErrorNombre] = useState(false);
+  const [errorComentario, setErrorComentario] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   /** subir comentario */
   const subirComentario = () => {
@@ -35,6 +38,30 @@ export default function AddComment({route, navigation}) {
     console.log(commentario);
     console.log(imageUri);
 
+    let errores = false;
+
+    if (name === undefined || name.trim() === '') {
+      errores = true;
+      setErrorNombre(true);
+    } else {
+      setErrorNombre(false);
+    }
+
+    if (commentario === undefined || commentario.trim() === '') {
+      errores = true;
+      setErrorComentario(true);
+    } else {
+      setErrorComentario(false);
+    }
+
+    // Se termina, no se puede seguir por errores.
+    if (errores == true) {
+      return;
+    }
+
+    setLoading(true);
+    console.log('Siguiendo... ');
+    
     let subirData = new FormData();
     subirData.append('idPlaces', dataApp.placeSelect);
     subirData.append('name', name);
@@ -56,6 +83,7 @@ export default function AddComment({route, navigation}) {
       .then(data => {
         console.log(data);
         if (data === true) {
+          setLoading(false);
           console.log('Estoy en el comentario');
           //navigation.navigate('PlacesComments');
           navigation.navigate('PlacesComments', {dataPlace: dataPlace});
@@ -63,29 +91,28 @@ export default function AddComment({route, navigation}) {
           //setModalVisible(true)
         }
       });
+      
   };
 
   const cameraLaunch = () => {
-   
     ImagePicker.launchCamera(
       {
         includeBase64: false,
         mediaType: 'photo',
         quality: 0.3,
       },
-      async (response) => {
+      async response => {
         if (response.didCancel) {
           console.log('User cancelled image picker');
         } else if (response.error) {
           console.log('ImagePicker Error: ', response.error);
         } else {
-          console.log("RESULTADO");
+          console.log('RESULTADO');
           console.log(response);
           setImageUri(response.assets[0].uri);
         }
       },
     );
-
   };
 
   const requestCameraPermission = async () => {
@@ -112,7 +139,14 @@ export default function AddComment({route, navigation}) {
   };
 
   return (
-    <View>
+    <View
+      style={{
+        backgroundColor: '#1C70E2',
+        width: '100%',
+        height: '100%',
+        flexDirection: 'column',
+        alignContent: 'center',
+      }}>
       <Modal visible={modalVisible} animationType={'slide'}>
         <View style={{flex: 1}}>
           <Text>Hello!</Text>
@@ -126,28 +160,115 @@ export default function AddComment({route, navigation}) {
         </View>
       </Modal>
 
-      <TextInput
-        onChangeText={setName}
-        value={Text}
-        placeholder="Ingresa tu nombre"
-        keyboardType="text"
-      />
+      <View
+        style={{
+          margin: '5%',
+        }}>
+        <Text
+          style={{
+            fontFamily: 'Raleway-Regular',
+            fontSize: 45,
+            color: '#F0F5FB',
+          }}>
+          Comentar
+        </Text>
 
-      <TextInput
-        multiline={true}
-        numberOfLines={4}
-        onChangeText={setComentario}
-        value={Text}
-        placeholder="Ingresa tu comentario"
-        keyboardType="text"
-      />
+        <View
+          style={{
+            backgroundColor: '#ffff',
+            width: '100%',
+            borderRadius: 8,
+            padding: 10,
+            marginTop: 10,
+          }}>
+          <TextInput
+            style={{
+              fontFamily: 'Raleway-Regular',
+              backgroundColor: '#EEF3F6',
+              marginTop: 10,
+              borderRadius: 2,
+              padding: 5,
+            }}
+            onChangeText={setName}
+            value={Text}
+            placeholder="Ingresa tu nombre"
+            keyboardType="text"
+          />
 
-      <Button
-        onPress={requestCameraPermission}
-        title={'subir foto'}
-      />
+          {errorNombre && <Text>No puede ser vacio el nombre </Text>}
 
-      <Button onPress={() => subirComentario()} title={'Comentar'} />
+          <TextInput
+            style={{
+              fontFamily: 'Raleway-Regular',
+              backgroundColor: '#EEF3F6',
+              marginTop: 10,
+              marginBottom: 10,
+              borderRadius: 2,
+              padding: 5,
+            }}
+            multiline={true}
+            numberOfLines={4}
+            onChangeText={setComentario}
+            value={Text}
+            placeholder="Ingresa tu comentario"
+            keyboardType="text"
+          />
+
+          {errorComentario && <Text>No puede ser vacio el comentario </Text>}
+
+          <TouchableOpacity onPress={requestCameraPermission}>
+            <View
+              style={{
+                width: '100%',
+                backgroundColor: '#122E55',
+                borderRadius: 12,
+                alignItems: 'center',
+                marginTop: 15,
+              }}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 18,
+                  padding: 10,
+                  color: '#F0F5FB',
+                }}>
+                Subir imagen
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => subirComentario()}>
+            <View
+              style={{
+                width: '100%',
+                backgroundColor: '#122E55',
+                borderRadius: 12,
+                alignItems: 'center',
+                marginTop: 15,
+              }}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 18,
+                  padding: 10,
+                  color: '#F0F5FB',
+                }}>
+                <Text>Comentar {}</Text>
+
+                {loading && (
+                  <ActivityIndicator
+                    visible={loading}
+                    color="#00ff00"
+                    textContent={'Loading...'}
+                  />
+                )}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 }
