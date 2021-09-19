@@ -90,7 +90,6 @@ export default function PlacesComments({route, navigation}) {
         alignContent: 'center',
       }}>
       <Modal visible={modalVisible} animationType={'slide'}>
-        
         <View
           style={{
             backgroundColor: '#1C70E2',
@@ -99,73 +98,80 @@ export default function PlacesComments({route, navigation}) {
             flexDirection: 'column',
             alignContent: 'center',
           }}>
-          <View
-            style={{
-              margin: '5%',
-            }}>
+          <ScrollView horiztonal>
             <View
               style={{
-                backgroundColor: '#ffff',
-                width: '100%',
-                borderRadius: 8,
-                padding: 10,
-                marginTop: 10,
+                margin: '5%',
               }}>
-              <Image
-                style={{
-                  width: '100%',
-                  height: '70%',
-                }}
-                source={{
-                  uri: dataApp.urlPhotoServer + dataImagenModal.photo,
-                }}
-              />
-
-              <Text
-                style={{
-                  fontFamily: 'Raleway-Regular',
-                  fontSize: 15,
-                  color: '#6A686B',
-                }}>
-                <Text>{dataImagenModal.name} </Text>
-                <Text> - </Text>
-                <Icon key="1" name="camera" size={15}></Icon>
-              </Text>
-
-              <Text
-                style={{
-                  fontFamily: 'Raleway-Regular',
-                  fontSize: 15,
-                  color: '#6A686B',
-                }}>
-                {dataImagenModal.comment}
-              </Text>
-
-              <TouchableOpacity onPress={() => setModalVisible(false)}>
               <View
                 style={{
+                  backgroundColor: '#ffff',
                   width: '100%',
-                  backgroundColor: '#122E55',
-                  borderRadius: 12,
-                  alignItems: 'center',
-                  marginTop: 15,
+                  borderRadius: 8,
+                  padding: 10,
+                  marginTop: 10,
                 }}>
+                {dataImagenModal.photo !== '' && (
+                  <Image
+                    style={{
+                      width: '100%',
+                      height: 400,
+                    }}
+                    source={{
+                      uri: dataApp.urlPhotoServer + dataImagenModal.photo,
+                    }}
+                  />
+                )}
+
                 <Text
                   style={{
-                    textAlign: 'center',
                     fontFamily: 'Raleway-Regular',
-                    fontSize: 18,
-                    padding: 10,
-                    color: '#F0F5FB',
+                    fontSize: 15,
+                    color: '#6A686B',
                   }}>
-                  Cerrar
+                  <Text>{dataImagenModal.name} </Text>
+                  <Text> - </Text>
+
+                  {dataImagenModal.photo !== '' && (
+                    <Icon key="1" name="image" size={15}></Icon>
+                  )}
+                  
                 </Text>
+
+                <Text
+                  style={{
+                    fontFamily: 'Raleway-Regular',
+                    fontSize: 15,
+                    color: '#6A686B',
+                  }}>
+                  {dataImagenModal.comment}
+                </Text>
+
+                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                  <View
+                    style={{
+                      width: '100%',
+                      backgroundColor: '#122E55',
+                      borderRadius: 12,
+                      alignItems: 'center',
+                      marginTop: 15,
+                      marginBottom: 15,
+                    }}>
+                    <Text
+                      style={{
+                        textAlign: 'center',
+                        fontFamily: 'Raleway-Regular',
+                        fontSize: 18,
+                        padding: 10,
+                        color: '#F0F5FB',
+                      }}>
+                      Cerrar
+                    </Text>
+                  </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-
             </View>
-
-          </View>
+          </ScrollView>
         </View>
       </Modal>
 
@@ -251,13 +257,14 @@ export default function PlacesComments({route, navigation}) {
                               {acortarComment(40, r.comment)} {}
                             </Text>
 
-                            <Icon key="1" name="image" size={15}></Icon>
+                            {r.photo !== '' && (
+                              <Icon key="1" name="image" size={15}></Icon>
+                            )}
                           </Text>
                         </View>
                       </TouchableOpacity>
                     ))}
                   </View>
-
                 </View>
               )}
             </View>
