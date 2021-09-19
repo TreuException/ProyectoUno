@@ -69,6 +69,17 @@ export default function PlacesComments({route, navigation}) {
     }
   };
 
+  const acortarComment = (largoMaximo, comment) => {
+    const largo = comment.length;
+
+    if (largo > largoMaximo) {
+      const cortado = comment.substring(0, largoMaximo);
+      return cortado + '...';
+    } else {
+      return comment;
+    }
+  };
+
   return (
     <ScrollView
       style={{
@@ -79,24 +90,82 @@ export default function PlacesComments({route, navigation}) {
         alignContent: 'center',
       }}>
       <Modal visible={modalVisible} animationType={'slide'}>
-        <View style={{flex: 1}}>
-          <Image
+        
+        <View
+          style={{
+            backgroundColor: '#1C70E2',
+            width: '100%',
+            height: '100%',
+            flexDirection: 'column',
+            alignContent: 'center',
+          }}>
+          <View
             style={{
-              width: '90%',
-              height: 100,
-            }}
-            source={{
-              uri: dataApp.urlPhotoServer + dataImagenModal.photo,
-            }}
-          />
+              margin: '5%',
+            }}>
+            <View
+              style={{
+                backgroundColor: '#ffff',
+                width: '100%',
+                borderRadius: 8,
+                padding: 10,
+                marginTop: 10,
+              }}>
+              <Image
+                style={{
+                  width: '100%',
+                  height: '70%',
+                }}
+                source={{
+                  uri: dataApp.urlPhotoServer + dataImagenModal.photo,
+                }}
+              />
 
-          <Button
-            title="Click To Close Modal"
-            onPress={() => {
-              alert(modalVisible);
-              setModalVisible(false);
-            }}
-          />
+              <Text
+                style={{
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 15,
+                  color: '#6A686B',
+                }}>
+                <Text>{dataImagenModal.name} </Text>
+                <Text> - </Text>
+                <Icon key="1" name="camera" size={15}></Icon>
+              </Text>
+
+              <Text
+                style={{
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 15,
+                  color: '#6A686B',
+                }}>
+                {dataImagenModal.comment}
+              </Text>
+
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <View
+                style={{
+                  width: '100%',
+                  backgroundColor: '#122E55',
+                  borderRadius: 12,
+                  alignItems: 'center',
+                  marginTop: 15,
+                }}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontFamily: 'Raleway-Regular',
+                    fontSize: 18,
+                    padding: 10,
+                    color: '#F0F5FB',
+                  }}>
+                  Cerrar
+                </Text>
+              </View>
+            </TouchableOpacity>
+
+            </View>
+
+          </View>
         </View>
       </Modal>
 
@@ -135,9 +204,10 @@ export default function PlacesComments({route, navigation}) {
 
             <Text
               style={{
-                fontFamily: 'Raleway-Regular',
-                fontSize: 12,
+                fontFamily: 'Raleway-Bold',
+                fontSize: 15,
                 color: '#6A686B',
+                marginTop: 5,
               }}>
               Comentarios :
             </Text>
@@ -159,46 +229,35 @@ export default function PlacesComments({route, navigation}) {
                 </View>
               ) : (
                 <View>
-                  {dataComments.map(r => (
-                    <View key={r.id.toString()}>
-                      <View
-                        style={{
-                          backgroundColor: '#EEF3F6',
-                          marginTop: 10,
-                          borderRadius: 2,
-                          padding: 5,
-                        }}>
-                        <Text
+                  <View>
+                    {dataComments.map(r => (
+                      <TouchableOpacity onPress={() => openModalImagen(r)}>
+                        <View
                           style={{
-                            fontFamily: 'Raleway-Regular',
-                            fontSize: 12,
-                            color: '#6A686B',
+                            flexDirection: 'row',
+                            backgroundColor: '#EEF3F6',
+                            marginTop: 10,
+                            borderRadius: 8,
+                            padding: 8,
                           }}>
-                          <Text>#</Text>
-                          <Text style={{fontWeight: 'bold'}}>
-                            {r.id.toString()}{' '}
-                          </Text>
-                          <Text> - </Text>
-                          <Text>{r.name} </Text>
-                          <Text> - </Text>
-                          <Icon
-                            key="1"
-                            onPress={() => openModalImagen(r)}
-                            name="camera"
-                            size={15}></Icon>
-                        </Text>
+                          <Text
+                            style={{
+                              fontFamily: 'Raleway-Regular',
+                              fontSize: 12,
+                              color: '#6A686B',
+                            }}>
+                            <Text> {r.name} - </Text>
+                            <Text>
+                              {acortarComment(40, r.comment)} {}
+                            </Text>
 
-                        <Text
-                          style={{
-                            fontFamily: 'Raleway-Regular',
-                            fontSize: 10,
-                            color: '#6A686B',
-                          }}>
-                          {r.comment}
-                        </Text>
-                      </View>
-                    </View>
-                  ))}
+                            <Icon key="1" name="image" size={15}></Icon>
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+
                 </View>
               )}
             </View>
@@ -229,7 +288,6 @@ export default function PlacesComments({route, navigation}) {
             </Text>
           </View>
         </TouchableOpacity>
-        
       </View>
     </ScrollView>
   );
