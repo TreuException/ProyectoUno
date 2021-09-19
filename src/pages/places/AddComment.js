@@ -32,6 +32,13 @@ export default function AddComment({route, navigation}) {
 
   const [loading, setLoading] = useState(false);
 
+
+  var unicodeToChar = function(text) {
+    return text.replace(/\\u[\dA-F]{4}/gi, function(match) {
+        return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
+    });
+  }
+
   /** subir comentario */
   const subirComentario = () => {
     console.log(name);
@@ -59,13 +66,18 @@ export default function AddComment({route, navigation}) {
       return;
     }
 
+    const sinEmoticon = unicodeToChar(commentario);
+
+
+
     setLoading(true);
     console.log('Siguiendo... ');
     
     let subirData = new FormData();
     subirData.append('idPlaces', dataApp.placeSelect);
     subirData.append('name', name);
-    subirData.append('comment', commentario);
+    subirData.append('comment', sinEmoticon);
+    //subirData.append('comment', commentario);
 
     if (imageUri !== undefined) {
       subirData.append('photo', {
@@ -189,6 +201,9 @@ export default function AddComment({route, navigation}) {
               borderRadius: 2,
               padding: 5,
             }}
+
+            keyboardType={Platform.OS === 'android' ? 'email-address' : 'ascii-capable'}
+
             onChangeText={setName}
             value={Text}
             placeholder="Ingresa tu nombre"
@@ -206,6 +221,7 @@ export default function AddComment({route, navigation}) {
               borderRadius: 2,
               padding: 5,
             }}
+            keyboardType={Platform.OS === 'android' ? 'email-address' : 'ascii-capable'}
             multiline={true}
             numberOfLines={4}
             onChangeText={setComentario}
