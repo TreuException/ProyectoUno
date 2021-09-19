@@ -9,6 +9,7 @@ import {
   Pressable,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView
 } from 'react-native';
 
 import * as ImagePicker from 'react-native-image-picker';
@@ -97,10 +98,7 @@ export default function AddComment({route, navigation}) {
         if (data === true) {
           setLoading(false);
           console.log('Estoy en el comentario');
-          //navigation.navigate('PlacesComments');
           navigation.navigate('PlacesComments', {dataPlace: dataPlace});
-
-          //setModalVisible(true)
         }
       });
       
@@ -151,7 +149,7 @@ export default function AddComment({route, navigation}) {
   };
 
   return (
-    <View
+    <ScrollView
       style={{
         backgroundColor: '#1C70E2',
         width: '100%',
@@ -159,18 +157,6 @@ export default function AddComment({route, navigation}) {
         flexDirection: 'column',
         alignContent: 'center',
       }}>
-      <Modal visible={modalVisible} animationType={'slide'}>
-        <View style={{flex: 1}}>
-          <Text>Hello!</Text>
-          <Button
-            title="Click To Close Modal"
-            onPress={() => {
-              alert(modalVisible);
-              setModalVisible(false);
-            }}
-          />
-        </View>
-      </Modal>
 
       <View
         style={{
@@ -202,8 +188,7 @@ export default function AddComment({route, navigation}) {
               padding: 5,
             }}
 
-            keyboardType={Platform.OS === 'android' ? 'email-address' : 'ascii-capable'}
-
+            
             onChangeText={setName}
             value={Text}
             placeholder="Ingresa tu nombre"
@@ -221,7 +206,7 @@ export default function AddComment({route, navigation}) {
               borderRadius: 2,
               padding: 5,
             }}
-            keyboardType={Platform.OS === 'android' ? 'email-address' : 'ascii-capable'}
+            
             multiline={true}
             numberOfLines={4}
             onChangeText={setComentario}
@@ -285,6 +270,6 @@ export default function AddComment({route, navigation}) {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
