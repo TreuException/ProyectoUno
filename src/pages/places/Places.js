@@ -82,6 +82,20 @@ export default function Places({route, navigation}) {
           </View>
         ) : (
           <View>
+
+            {dataPlaces.length === 0 && (
+              <View
+                style={{
+                  backgroundColor: '#ffff',
+                  width: '100%',
+                  borderRadius: 8,
+                  padding: 10,
+                  marginTop: 10,
+                }}>
+                <Text> Sin registros </Text>
+              </View>
+            )}
+
             {dataPlaces.map(r => (
               <TouchableOpacity
                 onPress={() => {
@@ -97,7 +111,6 @@ export default function Places({route, navigation}) {
                     marginTop: 10,
                   }}
                   key={r.id.toString()}>
-                    
                   <Image
                     style={{
                       width: '100%',
