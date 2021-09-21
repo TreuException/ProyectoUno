@@ -98,6 +98,7 @@ export default function Places({route, navigation}) {
 
             {dataPlaces.map(r => (
               <TouchableOpacity
+                key={r.id.toString()}
                 onPress={() => {
                   setDataApp({...dataApp, placeSelect: r.id.toString()});
                   navigation.navigate('PlacesComments', {dataPlace: r});

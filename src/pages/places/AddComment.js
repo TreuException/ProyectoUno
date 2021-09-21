@@ -192,7 +192,6 @@ export default function AddComment({route, navigation}) {
             onChangeText={setName}
             value={Text}
             placeholder="Ingresa tu nombre"
-            keyboardType="text"
           />
 
           {errorNombre && <Text>No puede ser vacio el nombre </Text>}
@@ -212,7 +211,6 @@ export default function AddComment({route, navigation}) {
             onChangeText={setComentario}
             value={Text}
             placeholder="Ingresa tu comentario"
-            keyboardType="text"
           />
 
           {errorComentario && <Text>No puede ser vacio el comentario </Text>}

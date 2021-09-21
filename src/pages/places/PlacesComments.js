@@ -37,6 +37,8 @@ export default function PlacesComments({route, navigation}) {
 
   const [dataImagenModal, setDataImagenModal] = useState({});
 
+  const [imageLoaded, isImageLoaded] = useState(false);
+
   useEffect(() => {
     if (isFocused) {
       console.log('se inicia');
@@ -111,8 +113,18 @@ export default function PlacesComments({route, navigation}) {
                   padding: 10,
                   marginTop: 10,
                 }}>
+                  
+                {imageLoaded === false && (
+                  <ActivityIndicator
+                    visible={loading}
+                    color="#6A686B"
+                    textContent={'Loading...'}
+                  />
+                )}
+
                 {dataImagenModal.photo !== '' && (
                   <Image
+                    onLoadEnd={() => isImageLoaded(true)}
                     style={{
                       width: '100%',
                       height: 400,
@@ -135,7 +147,6 @@ export default function PlacesComments({route, navigation}) {
                   {dataImagenModal.photo !== '' && (
                     <Icon key="1" name="image" size={15}></Icon>
                   )}
-                  
                 </Text>
 
                 <Text
@@ -237,7 +248,9 @@ export default function PlacesComments({route, navigation}) {
                 <View>
                   <View>
                     {dataComments.map(r => (
-                      <TouchableOpacity onPress={() => openModalImagen(r)}>
+                      <TouchableOpacity
+                        key={r.id.toString()}
+                        onPress={() => openModalImagen(r)}>
                         <View
                           style={{
                             flexDirection: 'row',
