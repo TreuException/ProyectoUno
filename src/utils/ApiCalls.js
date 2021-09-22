@@ -1,12 +1,9 @@
 import {apiProperties} from './properties';
 
 export const getListPlacesByTypeId = async (data, id) => {
-  console.log(data);
-  console.log(id);
-
   try {
     const urlFinal = data.urlBase + data.endPoint.listPlacesByTypeId + id;
-    console.log('url final: ' + urlFinal);
+    //console.log('url final: ' + urlFinal);
 
     return await fetch(urlFinal)
       .then(response => response.json())
@@ -23,12 +20,12 @@ export const getListType = async data => {
   try {
     const urlFinal = data.urlBase + data.endPoint.listTypePlaces;
 
-    console.log('url final: ' + urlFinal);
+    //console.log('url final: ' + urlFinal);
 
     return await fetch(urlFinal)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        //console.log(data);
         return data;
       });
   } catch (error) {
@@ -41,12 +38,12 @@ export const listCommentsByPlaces = async (data, id) => {
   try {
     const urlFinal = data.urlBase + data.endPoint.listCommentsByPlaces + id;
 
-    console.log('url final: ' + urlFinal);
+    //console.log('url final: ' + urlFinal);
 
     return await fetch(urlFinal)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        //console.log(data);
         return data;
       });
   } catch (error) {

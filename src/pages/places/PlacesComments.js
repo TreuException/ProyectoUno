@@ -41,24 +41,22 @@ export default function PlacesComments({route, navigation}) {
 
   useEffect(() => {
     if (isFocused) {
-      console.log('se inicia');
-      console.log(dataPlace);
       setLoading(true);
 
-      console.log('data del contexto');
-      console.log(dataApp);
-      console.log(dataApp.urlPhotoServer);
+      //console.log('data del contexto');
+      //console.log(dataApp);
+      //console.log(dataApp.urlPhotoServer);
 
       listCommentsByPlaces(dataApp, dataPlace.id)
         .then(data => {
-          console.log('COMENTARIOS...');
-          console.log(data);
+          //console.log('COMENTARIOS...');
+          //console.log(data);
           setDataComments(data);
           setLoading(false);
         })
         .catch(error => {
-          console.log('Api call error');
-          alert(error.message);
+          console.log('Api call error' + error.message);
+          //alert(error.message);
           setLoading(false);
         });
     }
@@ -113,7 +111,7 @@ export default function PlacesComments({route, navigation}) {
                   padding: 10,
                   marginTop: 10,
                 }}>
-                  
+
                 {imageLoaded === false && (
                   <ActivityIndicator
                     visible={loading}

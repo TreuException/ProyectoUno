@@ -9,7 +9,7 @@ import {
   Pressable,
   TouchableOpacity,
   ActivityIndicator,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 
 import * as ImagePicker from 'react-native-image-picker';
@@ -33,18 +33,17 @@ export default function AddComment({route, navigation}) {
 
   const [loading, setLoading] = useState(false);
 
-
-  var unicodeToChar = function(text) {
-    return text.replace(/\\u[\dA-F]{4}/gi, function(match) {
-        return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
+  var unicodeToChar = function (text) {
+    return text.replace(/\\u[\dA-F]{4}/gi, function (match) {
+      return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
     });
-  }
+  };
 
   /** subir comentario */
   const subirComentario = () => {
-    console.log(name);
-    console.log(commentario);
-    console.log(imageUri);
+    //console.log(name);
+    //console.log(commentario);
+    //console.log(imageUri);
 
     let errores = false;
 
@@ -69,11 +68,8 @@ export default function AddComment({route, navigation}) {
 
     const sinEmoticon = unicodeToChar(commentario);
 
-
-
     setLoading(true);
-    console.log('Siguiendo... ');
-    
+
     let subirData = new FormData();
     subirData.append('idPlaces', dataApp.placeSelect);
     subirData.append('name', name);
@@ -97,11 +93,9 @@ export default function AddComment({route, navigation}) {
         console.log(data);
         if (data === true) {
           setLoading(false);
-          console.log('Estoy en el comentario');
           navigation.navigate('PlacesComments', {dataPlace: dataPlace});
         }
       });
-      
   };
 
   const cameraLaunch = () => {
@@ -117,8 +111,8 @@ export default function AddComment({route, navigation}) {
         } else if (response.error) {
           console.log('ImagePicker Error: ', response.error);
         } else {
-          console.log('RESULTADO');
-          console.log(response);
+          //console.log('RESULTADO');
+          //console.log(response);
           setImageUri(response.assets[0].uri);
         }
       },
@@ -138,7 +132,6 @@ export default function AddComment({route, navigation}) {
         },
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('Camera permission given');
         cameraLaunch();
       } else {
         console.log('Camera permission denied');
@@ -157,7 +150,6 @@ export default function AddComment({route, navigation}) {
         flexDirection: 'column',
         alignContent: 'center',
       }}>
-
       <View
         style={{
           margin: '5%',
@@ -187,14 +179,18 @@ export default function AddComment({route, navigation}) {
               borderRadius: 2,
               padding: 5,
             }}
-
-            
             onChangeText={setName}
             value={Text}
             placeholder="Ingresa tu nombre"
           />
 
-          {errorNombre && <Text>No puede ser vacio el nombre </Text>}
+          {errorNombre && (
+            <ActivityIndicator
+              visible={loading}
+              color="#00ff00"
+              textContent={'Loading...'}
+            />
+          )}
 
           <TextInput
             style={{
@@ -205,7 +201,6 @@ export default function AddComment({route, navigation}) {
               borderRadius: 2,
               padding: 5,
             }}
-            
             multiline={true}
             numberOfLines={4}
             onChangeText={setComentario}

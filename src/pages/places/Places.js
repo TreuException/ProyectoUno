@@ -27,17 +27,15 @@ export default function Places({route, navigation}) {
   const [dataPlaces, setDataPlaces] = useState([]);
 
   useEffect(() => {
-    console.log('se inicia');
     setLoading(true);
 
     getListPlacesByTypeId(dataApp, dataApp.typePlacesSelect)
       .then(data => {
-        console.log(data);
         setDataPlaces(data);
         setLoading(false);
       })
       .catch(error => {
-        console.log('Api call error');
+        //console.log('Api call error');
         //alert(error.message);
         setLoading(false);
       });
