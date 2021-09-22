@@ -26,12 +26,10 @@ export default function index({navigation}) {
   const [dataTypePlaces, setDataTypePlaces] = useState([]);
 
   useEffect(() => {
-    console.log('se inicia');
     setLoading(true);
 
     getListType(dataApp)
       .then(data => {
-        console.log(data);
         setDataTypePlaces(data);
         setLoading(false);
       })
