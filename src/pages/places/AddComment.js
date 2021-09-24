@@ -20,9 +20,9 @@ import {apiProperties} from '../../utils/properties';
 export default function AddComment({route, navigation}) {
   const {dataPlace} = route.params;
 
-  const [name, setName] = useState();
-  const [commentario, setComentario] = useState();
-  const [imageUri, setImageUri] = useState();
+  const [name, setName] = useState('');
+  const [commentario, setComentario] = useState('');
+  const [imageUri, setImageUri] = useState('');
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -180,7 +180,6 @@ export default function AddComment({route, navigation}) {
               padding: 5,
             }}
             onChangeText={setName}
-            value={Text}
             placeholder="Ingresa tu nombre"
           />
 
@@ -204,7 +203,6 @@ export default function AddComment({route, navigation}) {
             multiline={true}
             numberOfLines={4}
             onChangeText={setComentario}
-            value={Text}
             placeholder="Ingresa tu comentario"
           />
 
